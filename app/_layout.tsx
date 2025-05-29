@@ -1,29 +1,117 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen
+        name="register"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+      <Stack.Screen
+        name="name"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+      <Stack.Screen
+        name="birthdate"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+      <Stack.Screen
+        name="gender"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+      <Stack.Screen
+        name="password"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+      <Stack.Screen
+        name="questions"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+      <Stack.Screen
+        name="colorquestions"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+       <Stack.Screen
+        name="adn"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+    </Stack>
+    
   );
 }
