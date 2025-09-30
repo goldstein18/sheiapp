@@ -1,10 +1,22 @@
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
+import { useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Use a timeout to ensure the layout is mounted before navigating
+    const timer = setTimeout(() => {
+      router.push("/register");
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Descubre</Text>
+      <Text style={styles.title}>Descubre tu potencial</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.loginButton}>
           <Text style={styles.buttonText}>Iniciar sesión</Text>
@@ -22,13 +34,13 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#01304A",
+    backgroundColor: "#121212",
     padding: 20,
   },
   title: {
     fontSize: 48,
     fontWeight: "bold",
-    color: "white",
+    color: "#EDEDED",
     textAlign: "center",
     marginTop: 150,
   },
@@ -46,16 +58,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: "#2979FF",
   },
   registerButton: {
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: "#669BBB",
+    backgroundColor: "#2979FF",
   },
   buttonText: {
-    color: "white",
+    color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "600",
   },

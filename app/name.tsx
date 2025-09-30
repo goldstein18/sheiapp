@@ -1,5 +1,5 @@
-import { Text, View, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import { Link } from "expo-router";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function Register() {
   return (
@@ -12,21 +12,21 @@ export default function Register() {
       <TextInput
         style={styles.input}
         placeholder="Nombre"
-        placeholderTextColor="#666"
+        placeholderTextColor="#777777"
         keyboardType="default"
       />
       
       <TextInput
         style={styles.input}
         placeholder="Primer Apellido"
-        placeholderTextColor="#666"
+        placeholderTextColor="#777777"
         keyboardType="default"
         autoCapitalize="characters"
       />
        <TextInput
         style={styles.input}
         placeholder="Segundo Apellido"
-        placeholderTextColor="#666"
+        placeholderTextColor="#777777"
         keyboardType="default"
         autoCapitalize="characters"
       />
@@ -42,28 +42,31 @@ export default function Register() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#121212",
     padding: 20,
   },
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "black",
+    color: "#EDEDED",
     marginTop: 0,
     marginBottom: 20,
   },
   subtitle: {
     fontSize: 16,
-    color: "gray",
+    color: "#EDEDED",
     marginBottom: 30,
     lineHeight: 22,
   },
   input: {
-    backgroundColor: "#EDEEF2",
+    backgroundColor: "#121212",
     borderRadius: 0,
     padding: 15,
     marginBottom: 15,
     fontSize: 16,
+    color: "#E0E0E0",
+    borderWidth: 1,
+    borderColor: "#333333",
   },
   loginContainer: {
     flexDirection: "row",
@@ -72,23 +75,23 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   loginText: {
-    color: "#669BBB",
+    color: "#2979FF",
     fontSize: 16,
   },
   loginLink: {
-    color: "#669BBB",
+    color: "#2979FF",
     fontSize: 16,
     fontWeight: "600",
   },
   continueButton: {
     marginTop:50,
-    backgroundColor: "#669BBB",
+    backgroundColor: "#2979FF",
     paddingVertical: 15,
     borderRadius: '0',
     alignItems: "center",
   },
   continueButtonText: {
-    color: "white",
+    color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "600",
   },
