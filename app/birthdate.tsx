@@ -115,7 +115,7 @@ export default function Birthdate() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
   },
   content: {
     flex: 1,
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#EDEDED",
+    color: "#1F2933",
     marginTop: 0,
     marginBottom: 30,
   },
@@ -137,17 +137,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
     borderRadius: 8,
     padding: 15,
     fontSize: 16,
     textAlign: "center",
-    color: "#E0E0E0",
+    color: "#1F2933",
     borderWidth: 1,
-    borderColor: "#333333",
+    borderColor: "#D0D5DD",
   },
   formatHint: {
-    color: "#EDEDED",
+    color: "#1F2933",
     fontSize: 14,
     textAlign: "center",
     marginTop: 10,
@@ -160,10 +160,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     padding: 20,
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
   },
   continueButton: {
-    backgroundColor: "#2979FF",
+    backgroundColor: "#669BBB",
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: "center",

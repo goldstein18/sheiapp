@@ -63,7 +63,7 @@ export default function Register() {
 
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>¿Ya tienes una cuenta? </Text>
-        <Link href="/" asChild>
+        <Link href="/login" asChild>
           <TouchableOpacity>
             <Text style={styles.loginLink}>Inicia sesión</Text>
           </TouchableOpacity>
@@ -86,31 +86,31 @@ export default function Register() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
     padding: 20,
   },
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#EDEDED",
+    color: "#1F2933",
     marginTop: 60,
     marginBottom: 20,
   },
   subtitle: {
     fontSize: 16,
-    color: "#EDEDED",
+    color: "#1F2933",
     marginBottom: 30,
     lineHeight: 22,
   },
   input: {
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
     borderRadius: 8,
     padding: 15,
     marginBottom: 15,
     fontSize: 16,
-    color: "#E0E0E0",
+    color: "#1F2933",
     borderWidth: 1,
-    borderColor: "#333333",
+    borderColor: "#D0D5DD",
   },
   errorText: {
     color: "#ff6b6b",
@@ -125,16 +125,17 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   loginText: {
-    color: "#EDEDED",
+    color: "#1F2933",
     fontSize: 16,
   },
   loginLink: {
-    color: "#2979FF",
+    color: "#669BBB",
+    color: "#669BBB",
     fontSize: 16,
     fontWeight: "600",
   },
   continueButton: {
-    backgroundColor: "#2979FF",
+    backgroundColor: "#669BBB",
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: "center",

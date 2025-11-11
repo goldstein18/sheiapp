@@ -12,10 +12,23 @@ export default function RootLayout() {
         options={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#121212",
+            backgroundColor: "#FFFFFF",
           },
           headerShadowVisible: false,
-          headerTintColor: "#EDEDED",
+          headerTintColor: "#1F2933",
+          headerTitle: "",
+          headerBackTitle: "Atrás",
+        }}
+      />
+      <Stack.Screen
+        name="login"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#FFFFFF",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "#1F2933",
           headerTitle: "",
           headerBackTitle: "Atrás",
         }}
@@ -25,10 +38,10 @@ export default function RootLayout() {
         options={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#121212",
+            backgroundColor: "#FFFFFF",
           },
           headerShadowVisible: false,
-          headerTintColor: "#EDEDED",
+          headerTintColor: "#1F2933",
           headerTitle: "",
           headerBackTitle: "Atrás",
         }}
@@ -38,10 +51,10 @@ export default function RootLayout() {
         options={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#121212",
+            backgroundColor: "#FFFFFF",
           },
           headerShadowVisible: false,
-          headerTintColor: "#EDEDED",
+          headerTintColor: "#1F2933",
           headerTitle: "",
           headerBackTitle: "Atrás",
         }}
@@ -51,10 +64,10 @@ export default function RootLayout() {
         options={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#121212",
+            backgroundColor: "#FFFFFF",
           },
           headerShadowVisible: false,
-          headerTintColor: "#EDEDED",
+          headerTintColor: "#1F2933",
           headerTitle: "",
           headerBackTitle: "Atrás",
         }}
@@ -64,10 +77,10 @@ export default function RootLayout() {
         options={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#121212",
+            backgroundColor: "#FFFFFF",
           },
           headerShadowVisible: false,
-          headerTintColor: "#EDEDED",
+          headerTintColor: "#1F2933",
           headerTitle: "",
           headerBackTitle: "Atrás",
         }}
@@ -80,9 +93,15 @@ export default function RootLayout() {
             backgroundColor: "white",
           },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#1F2933",
           headerTitle: "",
           headerBackTitle: "Atrás",
+        }}
+      />
+      <Stack.Screen
+        name="(tabs)"
+        options={{
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -93,7 +112,7 @@ export default function RootLayout() {
             backgroundColor: "white",
           },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#1F2933",
           headerTitle: "Test Firebase",
           headerBackTitle: "Atrás",
         }}
@@ -106,7 +125,7 @@ export default function RootLayout() {
             backgroundColor: "white",
           },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#1F2933",
           headerTitle: "",
           headerBackTitle: "Atrás",
         }}
@@ -119,7 +138,7 @@ export default function RootLayout() {
             backgroundColor: "white",
           },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#1F2933",
           headerTitle: "",
           headerBackTitle: "Atrás",
         }}

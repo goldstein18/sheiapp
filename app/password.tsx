@@ -125,7 +125,7 @@ export default function Password() {
             <Ionicons 
               name={hasUpperCase ? "checkmark-circle" : "checkmark-circle-outline"} 
               size={20} 
-              color={hasUpperCase ? "#2979FF" : "#777777"} 
+              color={hasUpperCase ? "#669BBB" : "#777777"} 
             />
             <Text style={[styles.requirementText, hasUpperCase && styles.requirementTextMet]}>
               Incluye una letra mayúscula
@@ -136,7 +136,7 @@ export default function Password() {
             <Ionicons 
               name={hasMinLength ? "checkmark-circle" : "checkmark-circle-outline"} 
               size={20} 
-              color={hasMinLength ? "#2979FF" : "#777777"} 
+              color={hasMinLength ? "#669BBB" : "#777777"} 
             />
             <Text style={[styles.requirementText, hasMinLength && styles.requirementTextMet]}>
               Mínimo 8 caracteres
@@ -147,7 +147,7 @@ export default function Password() {
             <Ionicons 
               name={hasNumber ? "checkmark-circle" : "checkmark-circle-outline"} 
               size={20} 
-              color={hasNumber ? "#2979FF" : "#777777"} 
+              color={hasNumber ? "#669BBB" : "#777777"} 
             />
             <Text style={[styles.requirementText, hasNumber && styles.requirementTextMet]}>
               Incluye un número
@@ -179,7 +179,7 @@ export default function Password() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
   },
   content: {
     flex: 1,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#EDEDED",
+    color: "#1F2933",
     marginTop: 0,
     marginBottom: 30,
   },
@@ -199,14 +199,14 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   input: {
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
     borderRadius: 8,
     padding: 15,
     fontSize: 16,
     paddingRight: 50,
-    color: "#E0E0E0",
+    color: "#1F2933",
     borderWidth: 1,
-    borderColor: "#333333",
+    borderColor: "#D0D5DD",
   },
   eyeIcon: {
     position: "absolute",
@@ -225,10 +225,10 @@ const styles = StyleSheet.create({
   },
   requirementText: {
     fontSize: 14,
-    color: "#EDEDED",
+    color: "#1F2933",
   },
   requirementTextMet: {
-    color: "#2979FF",
+    color: "#669BBB",
   },
   errorText: {
     color: "#ff6b6b",
@@ -238,10 +238,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     padding: 20,
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
   },
   continueButton: {
-    backgroundColor: "#2979FF",
+    backgroundColor: "#669BBB",
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: "center",

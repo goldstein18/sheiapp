@@ -64,6 +64,13 @@ const ResultsScreen = () => {
         >
           <Text style={styles.buttonText}>Ver todos los cursos</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.primaryAction}
+          onPress={() => router.replace('/(tabs)/inicio')}
+        >
+          <Text style={styles.primaryActionText}>Ir a mi inicio</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -170,6 +177,19 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  primaryAction: {
+    backgroundColor: '#1F2933',
+    padding: 16,
+    marginHorizontal: 20,
+    marginBottom: 40,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  primaryActionText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
   },
   buttonTextUpgrade: {
     color: 'white',

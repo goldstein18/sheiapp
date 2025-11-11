@@ -42,31 +42,31 @@ export default function Register() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
     padding: 20,
   },
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#EDEDED",
+    color: "#1F2933",
     marginTop: 0,
     marginBottom: 20,
   },
   subtitle: {
     fontSize: 16,
-    color: "#EDEDED",
+    color: "#1F2933",
     marginBottom: 30,
     lineHeight: 22,
   },
   input: {
-    backgroundColor: "#121212",
+    backgroundColor: "#FFFFFF",
     borderRadius: 0,
     padding: 15,
     marginBottom: 15,
     fontSize: 16,
-    color: "#E0E0E0",
+    color: "#1F2933",
     borderWidth: 1,
-    borderColor: "#333333",
+    borderColor: "#D0D5DD",
   },
   loginContainer: {
     flexDirection: "row",
@@ -75,19 +75,19 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   loginText: {
-    color: "#2979FF",
+    color: "#669BBB",
     fontSize: 16,
   },
   loginLink: {
-    color: "#2979FF",
+    color: "#669BBB",
     fontSize: 16,
     fontWeight: "600",
   },
   continueButton: {
     marginTop:50,
-    backgroundColor: "#2979FF",
+    backgroundColor: "#669BBB",
     paddingVertical: 15,
-    borderRadius: '0',
+    borderRadius: 0,
     alignItems: "center",
   },
   continueButtonText: {
