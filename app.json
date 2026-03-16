@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.goldstein18.sheiapp",
+      "bundleIdentifier": "com.goldstein18.sheiapp.dev",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }

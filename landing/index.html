@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shei | Panel de Publicidad</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="top-bar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-name">shei</span>
+      </div>
+      <nav class="actions">
+        <a href="#" class="action-link">Ver guía</a>
+        <a href="#" class="action-link">Soporte</a>
+        <button class="primary-button">Salir</button>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="upload-card">
+        <div class="card-header">
+          <h1>Administrar publicidad</h1>
+          <p>Sube imágenes promocionales para mostrarlas en la app.</p>
+        </div>
+        <form class="upload-form">
+          <label class="form-field">
+            <span class="field-label">Título de la campaña</span>
+            <input
+              type="text"
+              name="campaignTitle"
+              placeholder="Lanzamiento Premium Q1"
+              required
+            />
+          </label>
+
+          <label class="form-field">
+            <span class="field-label">Descripción breve</span>
+            <textarea
+              name="description"
+              rows="3"
+              placeholder="Este contenido aparecerá en la sección Inspírate."
+            ></textarea>
+          </label>
+
+          <label class="upload-field" for="assetUpload">
+            <div class="upload-icon">⬆</div>
+            <div class="upload-copy">
+              <strong>Arrastra tus imágenes aquí</strong>
+              <span>o haz clic para seleccionar archivos (PNG, JPG, 5MB máx.)</span>
+            </div>
+            <input id="assetUpload" type="file" accept="image/png,image/jpeg" multiple />
+          </label>
+
+          <div class="form-footer">
+            <button type="submit" class="primary-button">Guardar campaña</button>
+            <button type="reset" class="secondary-button">Limpiar</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="preview-card">
+        <h2>Vista previa</h2>
+        <p>
+          Aquí podrás visualizar la imagen seleccionada antes de publicarla en la app.
+          (Funcionalidad de vista previa pendiente de integrar).
+        </p>
+
+        <div class="placeholder-preview">
+          <span class="placeholder-text">Sin contenido cargado</span>
+        </div>
+
+        <div class="tips">
+          <h3>Recomendaciones</h3>
+          <ul>
+            <li>Utiliza un formato 16:9 para banners horizontales.</li>
+            <li>Incluye textos legibles y contrastados.</li>
+            <li>Evita mostrar información sensible.</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> Shei. Todos los derechos reservados.</span>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
+
