@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { authService } from "../services/auth";
 
 export default function Login() {
   const router = useRouter();
@@ -26,12 +27,24 @@ export default function Login() {
     setLoading(true);
     setError("");
 
-    // Temporarily bypass authentication to preview the logged-in experience.
-    // TODO: Restore Firebase authentication when backend is ready.
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await authService.signIn(email.trim(), password);
       router.replace("/(tabs)/inicio");
-    }, 600);
+    } catch (err: unknown) {
+      const code =
+        err && typeof err === "object" && "code" in err
+          ? String((err as { code?: string }).code)
+          : "";
+      if (code === "invalid_credentials") {
+        setError("Correo o contraseña incorrectos");
+      } else if (code === "email_not_confirmed") {
+        setError("Confirma tu correo antes de entrar");
+      } else {
+        setError("No se pudo iniciar sesión. Intenta de nuevo.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

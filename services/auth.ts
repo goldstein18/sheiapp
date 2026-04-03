@@ -1,72 +1,65 @@
-import { 
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  sendPasswordResetEmail,
-  updateProfile,
-  User
-} from 'firebase/auth';
-import { auth } from '../config/firebase';
+import type { User } from "@supabase/supabase-js";
+import { supabase } from "../config/supabase";
 
 export interface AuthUser {
-  uid: string;
+  id: string;
   email: string | null;
-  displayName: string | null;
+}
+
+function mapUser(user: User | null): AuthUser | null {
+  if (!user) return null;
+  return { id: user.id, email: user.email ?? null };
 }
 
 export const authService = {
-  // Register a new user
-  async register(email: string, password: string, displayName?: string): Promise<User> {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      
-      if (displayName) {
-        await updateProfile(userCredential.user, {
-          displayName: displayName
-        });
-      }
-      
-      return userCredential.user;
-    } catch (error) {
-      throw error;
-    }
+  async register(
+    email: string,
+    password: string,
+    displayName?: string,
+  ): Promise<User> {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: displayName
+        ? { data: { display_name: displayName } }
+        : undefined,
+    });
+    if (error) throw error;
+    if (!data.user) throw new Error("No se pudo crear el usuario");
+    return data.user;
   },
 
-  // Sign in existing user
   async signIn(email: string, password: string): Promise<User> {
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      return userCredential.user;
-    } catch (error) {
-      throw error;
-    }
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
+    if (!data.user) throw new Error("No se pudo iniciar sesión");
+    return data.user;
   },
 
-  // Sign out user
   async signOut(): Promise<void> {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      throw error;
-    }
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
   },
 
-  // Reset password
   async resetPassword(email: string): Promise<void> {
-    try {
-      await sendPasswordResetEmail(auth, email);
-    } catch (error) {
-      throw error;
-    }
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    if (error) throw error;
   },
 
-  // Get current user
-  getCurrentUser(): User | null {
-    return auth.currentUser;
+  async getCurrentUser(): Promise<User | null> {
+    const { data } = await supabase.auth.getUser();
+    return data.user;
   },
 
-  // Listen to auth state changes
-  onAuthStateChanged(callback: (user: User | null) => void) {
-    return auth.onAuthStateChanged(callback);
-  }
-}; 
+  onAuthStateChanged(callback: (user: AuthUser | null) => void) {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      callback(mapUser(session?.user ?? null));
+    });
+    return () => subscription.unsubscribe();
+  },
+};

@@ -1,12 +1,13 @@
-import { Text, View, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { Text, View, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, NativeSyntheticEvent, TextInputFocusEventData, ActivityIndicator } from "react-native";
+import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
+import { isApiConfigured, putQuestionnaire } from "../services/backend";
 
 export default function Questions() {
   const router = useRouter();
-  const params = useLocalSearchParams();
   const scrollViewRef = useRef<ScrollView>(null);
   const [error, setError] = useState("");
+  const [saving, setSaving] = useState(false);
   
   // Form data
   const [activities, setActivities] = useState("");
@@ -32,16 +33,38 @@ export default function Questions() {
     }
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (!activities || !schoolSubjects || !values) {
       setError("Por favor completa al menos los primeros tres campos");
       return;
     }
 
     setError("");
+    setSaving(true);
 
-    // Navigate to the next screen (you can change this to any screen you want)
-    router.push("/colorquestions");
+    try {
+      if (isApiConfigured()) {
+        await putQuestionnaire({
+          text_section: {
+            activities,
+            school_subjects: schoolSubjects,
+            values,
+            work_preference: workPreference,
+            natural_talents: naturalTalents,
+            personality_type: personalityType,
+            passionate_causes: passionateCauses,
+            work_style: workStyle,
+            potential_profession: potentialProfession,
+          },
+        });
+      }
+      router.push("/colorquestions");
+    } catch (e) {
+      console.error(e);
+      setError("No se pudieron guardar las respuestas. Revisa la API o tu conexión.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -172,12 +195,17 @@ export default function Questions() {
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
           <TouchableOpacity 
-            style={styles.continueButton}
+            style={[styles.continueButton, saving && styles.continueButtonDisabled]}
             onPress={handleContinue}
+            disabled={saving}
           >
-            <Text style={styles.buttonText}>
-              Completar registro
-            </Text>
+            {saving ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>
+                Completar registro
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
       </ScrollView>

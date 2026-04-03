@@ -1,6 +1,18 @@
 import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaView, ScrollView, StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
-import { useState } from "react";
+import { useRouter } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { authService } from "../../services/auth";
+import { getProfile, isApiConfigured, type ProfileRow } from "../../services/backend";
 
 const MENU_ITEMS = [
   { id: "profile", icon: "person-outline", label: "Editar perfil" },
@@ -10,8 +22,58 @@ const MENU_ITEMS = [
   { id: "terms", icon: "document-text-outline", label: "Términos y condiciones" },
 ];
 
+function initialsFromProfile(p: ProfileRow | null): string {
+  if (!p) return "?";
+  const n =
+    p.full_name ||
+    [p.first_name, p.last_name_paternal].filter(Boolean).join(" ").trim();
+  if (n) {
+    const parts = n.split(/\s+/).filter(Boolean);
+    const a = parts[0]?.[0] ?? "";
+    const b = parts[1]?.[0] ?? "";
+    return (a + b).toUpperCase() || "?";
+  }
+  return (p.email?.[0] ?? "?").toUpperCase();
+}
+
 export default function AccountSettingsScreen() {
+  const router = useRouter();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [profile, setProfile] = useState<ProfileRow | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const load = useCallback(async () => {
+    if (!isApiConfigured()) {
+      setLoading(false);
+      return;
+    }
+    try {
+      const p = await getProfile();
+      setProfile(p);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  const displayName =
+    profile?.full_name ||
+    [profile?.first_name, profile?.last_name_paternal]
+      .filter(Boolean)
+      .join(" ")
+      .trim() ||
+    "Usuario";
+  const displayEmail = profile?.email ?? "—";
+
+  const handleLogout = async () => {
+    await authService.signOut();
+    router.replace("/login");
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -20,13 +82,18 @@ export default function AccountSettingsScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
+        {loading ? (
+          <ActivityIndicator style={{ marginVertical: 24 }} color="#669BBB" />
+        ) : null}
         <View style={styles.profileCard}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarInitials}>ML</Text>
+            <Text style={styles.avatarInitials}>
+              {initialsFromProfile(profile)}
+            </Text>
           </View>
           <View style={styles.profileInfo}>
-            <Text style={styles.profileName}>Mariana López</Text>
-            <Text style={styles.profileEmail}>mariana.lopez@example.com</Text>
+            <Text style={styles.profileName}>{displayName}</Text>
+            <Text style={styles.profileEmail}>{displayEmail}</Text>
           </View>
           <TouchableOpacity style={styles.editBadge}>
             <Text style={styles.editBadgeText}>Editar</Text>
@@ -62,7 +129,7 @@ export default function AccountSettingsScreen() {
           ))}
         </View>
 
-        <TouchableOpacity style={styles.logoutButton}>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={20} color="#D92D20" />
           <Text style={styles.logoutText}>Cerrar sesión</Text>
         </TouchableOpacity>

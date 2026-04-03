@@ -105,19 +105,6 @@ export default function RootLayout() {
         }}
       />
       <Stack.Screen
-        name="test-firebase"
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerShadowVisible: false,
-          headerTintColor: "#1F2933",
-          headerTitle: "Test Firebase",
-          headerBackTitle: "Atrás",
-        }}
-      />
-      <Stack.Screen
         name="colorquestions"
         options={{
           headerShown: true,

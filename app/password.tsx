@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { authService } from "../services/auth";
+import { isApiConfigured, putProfile } from "../services/backend";
 
 export default function Password() {
   const router = useRouter();
@@ -33,12 +34,17 @@ export default function Password() {
     try {
       const email = params.email as string;
       
-      // Create Firebase user account
       const user = await authService.register(email, password);
-      
-      // Store additional user data in Firebase (you might want to use Firestore for this)
-      // For now, we'll pass the data to the questions screen
-      
+
+      if (isApiConfigured()) {
+        await putProfile({
+          email: params.email as string,
+          phone: params.phoneNumber as string,
+          birthdate: params.birthdate as string,
+          gender: params.gender as string,
+        });
+      }
+
       router.push({
         pathname: "/questions",
         params: { 
@@ -46,18 +52,32 @@ export default function Password() {
           email: params.email as string,
           birthdate: params.birthdate as string,
           gender: params.gender as string,
-          userId: user.uid
+          userId: user.id
         }
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Password error:", error);
-      
-      // Handle specific Firebase auth errors
-      if (error.code === 'auth/email-already-in-use') {
+
+      const code =
+        error && typeof error === "object" && "code" in error
+          ? String((error as { code?: string }).code)
+          : "";
+      const message =
+        error && typeof error === "object" && "message" in error
+          ? String((error as { message?: string }).message)
+          : "";
+
+      if (
+        code === "user_already_exists" ||
+        message.toLowerCase().includes("already registered")
+      ) {
         setError("Este correo electrónico ya está registrado");
-      } else if (error.code === 'auth/weak-password') {
+      } else if (code === "weak_password") {
         setError("La contraseña es demasiado débil");
-      } else if (error.code === 'auth/invalid-email') {
+      } else if (
+        code === "invalid_credentials" ||
+        code === "email_address_invalid"
+      ) {
         setError("Correo electrónico inválido");
       } else {
         setError("Error al crear la cuenta. Intenta de nuevo.");

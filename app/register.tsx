@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     color: "#669BBB",
-    color: "#669BBB",
     fontSize: 16,
     fontWeight: "600",
   },

@@ -1,17 +1,54 @@
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { isApiConfigured, putQuestionnaire } from "../services/backend";
 
-const colorOptions = ['#FF0000', '#FF0000', '#800080', '#008000', '#008000'];
+const colorOptions = ["#FF0000", "#FF0000", "#800080", "#008000", "#008000"];
 
-export default function Questions() {
+export default function ColorQuestionsScreen() {
+  const router = useRouter();
   const scrollViewRef = useRef<ScrollView>(null);
-  const [selectedColors, setSelectedColors] = useState<number[]>(Array(8).fill(-1)); // -1 means no selection
+  const [selectedColors, setSelectedColors] = useState<number[]>(
+    Array(8).fill(-1),
+  );
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const handleCircleSelect = (questionIndex: number, colorIndex: number) => {
     const newSelections = [...selectedColors];
     newSelections[questionIndex] = colorIndex;
     setSelectedColors(newSelections);
+  };
+
+  const handleContinue = async () => {
+    setError("");
+    setSaving(true);
+    try {
+      if (isApiConfigured()) {
+        await putQuestionnaire({
+          color_section: {
+            selections: selectedColors,
+            color_options: colorOptions,
+          },
+          mark_onboarding_complete: true,
+        });
+      }
+      router.push("/adn");
+    } catch (e) {
+      console.error(e);
+      setError("No se pudieron guardar las respuestas. Intenta de nuevo.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -143,11 +180,19 @@ export default function Questions() {
             </View>
           </View>
 
-          <Link href="/adn" asChild>
-            <TouchableOpacity style={styles.continueButton}>
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+          <TouchableOpacity
+            style={[styles.continueButton, saving && styles.continueButtonDisabled]}
+            onPress={handleContinue}
+            disabled={saving}
+          >
+            {saving ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
               <Text style={styles.buttonText}>Continuar</Text>
-            </TouchableOpacity>
-          </Link>
+            )}
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -212,6 +257,14 @@ const styles = StyleSheet.create({
     marginTop: 30,
     alignSelf: "center",
     width: "100%",
+  },
+  continueButtonDisabled: {
+    opacity: 0.7,
+  },
+  errorText: {
+    color: "#ff6b6b",
+    marginTop: 8,
+    textAlign: "center",
   },
   buttonText: {
     color: "white",

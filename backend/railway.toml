@@ -1,0 +1,13 @@
+# Railway: en el dashboard, establece "Root Directory" = backend (o la carpeta donde está este archivo).
+# Variables: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, NODE_ENV=production
+# Railway inyecta PORT automáticamente.
+
+[build]
+builder = "nixpacks"
+buildCommand = "npm ci && npm run build"
+
+[deploy]
+startCommand = "node dist/main.js"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
